@@ -1058,7 +1058,7 @@ MonoBehaviour:
   jumpBufferLength: 0.1
   coyoteTimeLength: 0.2
   groundCheck: {fileID: 1126868321}
-  checkRadius: 0.5
+  checkRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8

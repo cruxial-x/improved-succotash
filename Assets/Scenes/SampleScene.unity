@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 30
-  dashTime: 0.5
+  dashTime: 0.1
   dashCooldown: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

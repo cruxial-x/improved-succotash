@@ -488,10 +488,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 925
+      x: 252
       y: 497
-      width: 45
-      height: 63
+      width: 72
+      height: 51
     spriteID: 25e9db6df400cb9468887afae198059a
     spriteBone: []
     spriteOutline: []
@@ -500,7 +500,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 871, y: 470}
+    uvTransform: {x: 210, y: 467}
   - name: swordsman_Frame_19
     originalName: 
     pivot: {x: 0.4583333, y: -0.58823526}
@@ -508,10 +508,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 252
+      x: 450
       y: 497
-      width: 72
-      height: 51
+      width: 54
+      height: 63
     spriteID: 791f0c5267a224f4ab4ff5436bfcc269
     spriteBone: []
     spriteOutline: []
@@ -520,7 +520,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 210, y: 467}
+    uvTransform: {x: 390, y: 479}
   - name: swordsman_Frame_20
     originalName: 
     pivot: {x: 0.27777776, y: -0.28571427}
@@ -528,9 +528,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 450
+      x: 925
       y: 497
-      width: 54
+      width: 45
       height: 63
     spriteID: 61d342a78bd245d428379d2fd6be4893
     spriteBone: []
@@ -540,7 +540,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 390, y: 479}
+    uvTransform: {x: 871, y: 470}
   - name: swordsman_Frame_21
     originalName: 
     pivot: {x: 0.5384615, y: -0.4117647}

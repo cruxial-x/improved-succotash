@@ -56,15 +56,14 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "redesigned-octo-memory.sln",
+    "dotnet.defaultSolution": "improved-succotash.sln",
     "files.autoSave": "onFocusChange",
     "[csharp]": {
         "editor.defaultFormatter": "ms-dotnettools.csharp"
     },
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
-    // Formatting rules
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
-    "editor.detectIndentation": false,
+    "editor.detectIndentation": false
 }

@@ -1,0 +1,3 @@
+[submodule "Packages/com.cruxial-x.platformer-movement"]
+	path = Packages/com.cruxial-x.platformer-movement
+	url = https://github.com/cruxial-x/platformer-movement.git

@@ -33,6 +33,9 @@ public class RoomManager : MonoBehaviour
 
   void InstantiateAllRooms()
   {
+    // Get the player's size
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    Vector2 playerSize = player.GetComponent<Collider2D>().bounds.size;
     for (int i = 0; i < rooms.Length; i++)
     {
       // Calculate the position of the room based on its index and the specified distances
@@ -53,7 +56,8 @@ public class RoomManager : MonoBehaviour
       // Add a BoxCollider2D and set it as a trigger
       BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
       collider.isTrigger = true;
-      collider.size = new Vector2(width, height);
+      // Add an offset to the size of the collider based on the size of the player
+      collider.size = new Vector2(width - playerSize.x, height - playerSize.y);
 
       // Add the RoomTrigger script and set the room
       RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
@@ -98,24 +102,15 @@ public class RoomManager : MonoBehaviour
 public class RoomTrigger : MonoBehaviour
 {
   public GameObject room;
-  private bool playerInTrigger = false;
 
   private void OnTriggerEnter2D(Collider2D other)
   {
     if (other.CompareTag("Player"))
     {
-      playerInTrigger = true;
-    }
-  }
-
-  private void OnTriggerExit2D(Collider2D other)
-  {
-    if (other.CompareTag("Player") && playerInTrigger)
-    {
+      RoomManager.instance.currentRoom.SetActive(false);
       RoomManager.instance.DisableRoomCamera(RoomManager.instance.currentRoom);
       RoomManager.instance.currentRoom = room;
-      RoomManager.instance.EnableRoomCamera(RoomManager.instance.currentRoom);
-      playerInTrigger = false;
+      RoomManager.instance.EnableRoomCamera(room);
     }
   }
 }

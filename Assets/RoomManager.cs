@@ -1,10 +1,26 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RoomManager : MonoBehaviour
 {
   public static RoomManager instance;
   public GameObject[] rooms;
   public GameObject currentRoom;
+  public Dictionary<Door, List<Door>> validDoorConnections = new Dictionary<Door, List<Door>>
+    {
+        { Door.TopMiddle, new List<Door> { Door.BottomMiddle } },
+        { Door.BottomMiddle, new List<Door> { Door.TopMiddle } },
+        { Door.TopLeft, new List<Door> { Door.BottomLeft, Door.TopRight } },
+        { Door.BottomLeft, new List<Door> { Door.TopLeft, Door.BottomRight } },
+        { Door.TopRight, new List<Door> { Door.BottomRight, Door.TopLeft } },
+        { Door.BottomRight, new List<Door> { Door.TopRight, Door.BottomLeft } },
+        { Door.LeftTop, new List<Door> { Door.RightTop } },
+        { Door.RightTop, new List<Door> { Door.LeftTop } },
+        { Door.LeftMiddle, new List<Door> { Door.RightMiddle } },
+        { Door.RightMiddle, new List<Door> { Door.LeftMiddle } },
+        { Door.LeftBottom, new List<Door> { Door.RightBottom } },
+        { Door.RightBottom, new List<Door> { Door.LeftBottom } }
+    };
 
   // Singleton pattern
   private void Awake()

@@ -5402,6 +5402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {x: 14.81979, y: 4.921298, z: 0}
+  doors: 02000000
 --- !u!1001 &2329583261725864104
 PrefabInstance:
   m_ObjectHideFlags: 0

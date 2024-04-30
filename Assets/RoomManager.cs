@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RoomManager : MonoBehaviour
 {
@@ -46,51 +47,114 @@ public class RoomManager : MonoBehaviour
   {
 
   }
-
+  bool HorizontalConnection(Door door1, Door door2)
+  {
+    return (door1 == Door.LeftMiddle && door2 == Door.RightMiddle) ||
+    (door1 == Door.RightMiddle && door2 == Door.LeftMiddle) ||
+    (door1 == Door.LeftTop && door2 == Door.RightTop) ||
+    (door1 == Door.RightTop && door2 == Door.LeftTop) ||
+    (door1 == Door.LeftBottom && door2 == Door.RightBottom) ||
+    (door1 == Door.RightBottom && door2 == Door.LeftBottom);
+  }
+  bool VerticalConnection(Door door1, Door door2)
+  {
+    return (door1 == Door.TopMiddle && door2 == Door.BottomMiddle) ||
+    (door1 == Door.BottomMiddle && door2 == Door.TopMiddle) ||
+    (door1 == Door.TopLeft && door2 == Door.BottomLeft) ||
+    (door1 == Door.BottomLeft && door2 == Door.TopLeft) ||
+    (door1 == Door.TopRight && door2 == Door.BottomRight) ||
+    (door1 == Door.BottomRight && door2 == Door.TopRight);
+  }
   void InstantiateAllRooms()
   {
-    // Get the player's size
     GameObject player = GameObject.FindGameObjectWithTag("Player");
     Vector2 playerSize = player.GetComponent<Collider2D>().bounds.size;
-    for (int i = 0; i < rooms.Length; i++)
+
+    Dictionary<GameObject, Vector3> roomPositions = new Dictionary<GameObject, Vector3>();
+    List<GameObject> roomList = new List<GameObject>();  // To maintain original order if needed
+
+    foreach (GameObject roomPrefab in rooms)
     {
-      // Calculate the position of the room based on its index and the specified distances
-      Vector3 position = new Vector3(0, i * 20f, 0);
+      List<Door> roomDoors = roomPrefab.GetComponent<Room>().doors;
+      List<Vector3> possiblePositions = new List<Vector3>();
 
-      // Instantiate the room at the calculated position
-      GameObject room = Instantiate(rooms[i], position, Quaternion.identity);
-
-      // Get the camera attached to the room
-      Camera roomCamera = room.GetComponentInChildren<Camera>();
-      float height = 2f * roomCamera.orthographicSize;
-      float width = height * roomCamera.aspect;
-
-      // Create a new GameObject for the trigger collider
-      GameObject triggerObject = new GameObject("Trigger");
-      triggerObject.transform.position = room.transform.position;
-
-      // Add a BoxCollider2D and set it as a trigger
-      BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
-      collider.isTrigger = true;
-      // Add an offset to the size of the collider based on the size of the player
-      collider.size = new Vector2(width - playerSize.x, height - playerSize.y);
-
-      // Add the RoomTrigger script and set the room
-      RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
-      roomTrigger.room = room;
-
-      // Deactivate the room
-      room.SetActive(false);
-
-      // If this is the first room, set it as the current room
-      if (i == 0)
+      foreach (Door door in roomDoors)
       {
-        currentRoom = room;
+        foreach (var entry in roomPositions)
+        {
+          GameObject otherRoom = entry.Key;
+          Vector3 otherPosition = entry.Value;
+          List<Door> otherRoomDoors = otherRoom.GetComponent<Room>().doors;
+
+          foreach (Door otherDoor in otherRoomDoors)
+          {
+            if (validDoorConnections.ContainsKey(door) && validDoorConnections[door].Contains(otherDoor))
+            {
+              Vector3 newPosition = Vector3.zero;
+              if (VerticalConnection(door, otherDoor))
+              {
+                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -20f : 20f;
+                newPosition = new Vector3(otherPosition.x, otherPosition.y + yOffset, 0);
+              }
+              else if (HorizontalConnection(door, otherDoor))
+              {
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? -36f : 36f;
+                newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
+              }
+              possiblePositions.Add(newPosition);
+            }
+          }
+        }
       }
+
+      // Choose the best position from possiblePositions based on some criteria (e.g., least distance from origin)
+      Vector3 position = ResolvePositionConflicts(possiblePositions);
+
+      // Instantiate the room at the chosen position
+      GameObject room = Instantiate(roomPrefab, position, Quaternion.identity);
+      roomPositions.Add(room, position);
+      roomList.Add(room);
+
+      // Setup the room
+      SetupRoom(room, playerSize);
     }
 
     // Activate the first room
-    currentRoom.SetActive(true);
+    if (roomList.Count > 0)
+    {
+      roomList[0].SetActive(true);
+      currentRoom = roomList[0];
+    }
+  }
+
+  Vector3 ResolvePositionConflicts(List<Vector3> positions)
+  {
+    if (positions.Count == 0)
+    {
+      return new Vector3(0, 0, 0);  // Default position if no connections
+    }
+    float averageX = positions.Average(pos => pos.x);
+    float averageY = positions.Average(pos => pos.y);
+    return new Vector3(averageX, averageY, 0);
+  }
+
+  void SetupRoom(GameObject room, Vector2 playerSize)
+  {
+    Camera roomCamera = room.GetComponentInChildren<Camera>();
+    float height = 2f * roomCamera.orthographicSize;
+    float width = height * roomCamera.aspect;
+
+    GameObject triggerObject = new GameObject("Trigger");
+    triggerObject.transform.position = room.transform.position;
+
+    BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
+    collider.isTrigger = true;
+    collider.size = new Vector2(width - playerSize.x, height - playerSize.y);
+
+    RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
+    roomTrigger.room = room;
+
+    room.SetActive(false);
   }
   public void EnableRoomCamera(GameObject room)
   {

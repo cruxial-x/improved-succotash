@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-  public bool playerHasVisited { get; set; }
   public Vector3 spawnPoint = new Vector3(0, 0, 0);
+  public Camera roomCamera { get; private set; }
   // Start is called before the first frame update
   void Start()
   {
@@ -14,8 +14,7 @@ public class Room : MonoBehaviour
     {
       player.transform.position = spawnPoint;
     }
-
-    playerHasVisited = true;
+    roomCamera = GetComponentInChildren<Camera>();
   }
 
   // Update is called once per frame

@@ -36,10 +36,28 @@ public class RoomManager : MonoBehaviour
     for (int i = 0; i < rooms.Length; i++)
     {
       // Calculate the position of the room based on its index and the specified distances
-      Vector3 position = new Vector3(i * 20f, 0, 0);
+      Vector3 position = new Vector3(0, i * 20f, 0);
 
       // Instantiate the room at the calculated position
       GameObject room = Instantiate(rooms[i], position, Quaternion.identity);
+
+      // Get the camera attached to the room
+      Camera roomCamera = room.GetComponentInChildren<Camera>();
+      float height = 2f * roomCamera.orthographicSize;
+      float width = height * roomCamera.aspect;
+
+      // Create a new GameObject for the trigger collider
+      GameObject triggerObject = new GameObject("Trigger");
+      triggerObject.transform.position = room.transform.position;
+
+      // Add a BoxCollider2D and set it as a trigger
+      BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
+      collider.isTrigger = true;
+      collider.size = new Vector2(width, height);
+
+      // Add the RoomTrigger script and set the room
+      RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
+      roomTrigger.room = room;
 
       // Deactivate the room
       room.SetActive(false);
@@ -49,26 +67,55 @@ public class RoomManager : MonoBehaviour
       {
         currentRoom = room;
       }
-
-      // Add a trigger collider to each room
-      room.AddComponent<BoxCollider2D>().isTrigger = true;
     }
 
     // Activate the first room
     currentRoom.SetActive(true);
   }
+  public void EnableRoomCamera(GameObject room)
+  {
+    if (!room.activeInHierarchy)
+    {
+      room.SetActive(true);
+    }
 
-  // Called when the player enters a trigger collider
+    Camera roomCamera = room.GetComponentInChildren<Camera>();
+    if (roomCamera != null)
+    {
+      roomCamera.enabled = true;
+    }
+  }
+
+  public void DisableRoomCamera(GameObject room)
+  {
+    Camera roomCamera = room.GetComponentInChildren<Camera>();
+    if (roomCamera != null)
+    {
+      roomCamera.enabled = false;
+    }
+  }
+}
+public class RoomTrigger : MonoBehaviour
+{
+  public GameObject room;
+  private bool playerInTrigger = false;
+
   private void OnTriggerEnter2D(Collider2D other)
   {
-    // Check if the collider belongs to a room
-    int roomIndex = System.Array.IndexOf(rooms, other.gameObject);
-    if (roomIndex != -1)
+    if (other.CompareTag("Player"))
     {
-      // Deactivate the current room and activate the new room
-      currentRoom.SetActive(false);
-      currentRoom = rooms[roomIndex];
-      currentRoom.SetActive(true);
+      playerInTrigger = true;
+    }
+  }
+
+  private void OnTriggerExit2D(Collider2D other)
+  {
+    if (other.CompareTag("Player") && playerInTrigger)
+    {
+      RoomManager.instance.DisableRoomCamera(RoomManager.instance.currentRoom);
+      RoomManager.instance.currentRoom = room;
+      RoomManager.instance.EnableRoomCamera(RoomManager.instance.currentRoom);
+      playerInTrigger = false;
     }
   }
 }

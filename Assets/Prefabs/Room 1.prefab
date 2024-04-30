@@ -5417,7 +5417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: maxCameraPos.x

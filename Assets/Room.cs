@@ -8,11 +8,12 @@ public class Room : MonoBehaviour
   public Vector3 spawnPoint = new Vector3(0, 0, 0);
   public Camera roomCamera { get; private set; }
   public List<Door> doors = new List<Door>();
+  public bool IsStartRoom { get; set; }
   // Start is called before the first frame update
   void Start()
   {
     GameObject player = GameObject.FindWithTag("Player");
-    if (spawnPoint != Vector3.zero)
+    if (spawnPoint != Vector3.zero && IsStartRoom)
     {
       player.transform.position = spawnPoint;
     }

@@ -617,8 +617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rooms:
-  - {fileID: 8669295670009253915, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
   - {fileID: 8669295670009253915, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
+  - {fileID: 8669295670009253915, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
   currentRoom: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

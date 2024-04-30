@@ -71,10 +71,19 @@ public class RoomManager : MonoBehaviour
     Vector2 playerSize = player.GetComponent<Collider2D>().bounds.size;
 
     Dictionary<GameObject, Vector3> roomPositions = new Dictionary<GameObject, Vector3>();
-    List<GameObject> roomList = new List<GameObject>();  // To maintain original order if needed
-
-    foreach (GameObject roomPrefab in rooms)
+    List<GameObject> roomList = new List<GameObject>();
+    // Instantiate the first room at the origin
+    if (rooms.Length > 0)
     {
+      GameObject firstRoom = Instantiate(rooms[0], Vector3.zero, Quaternion.identity);
+      firstRoom.GetComponent<Room>().IsStartRoom = true;
+      roomPositions.Add(firstRoom, Vector3.zero);
+      roomList.Add(firstRoom);
+      SetupRoom(firstRoom, playerSize);
+    }
+    for (int i = 1; i < rooms.Length; i++)
+    {
+      GameObject roomPrefab = rooms[i];
       List<Door> roomDoors = roomPrefab.GetComponent<Room>().doors;
       List<Vector3> possiblePositions = new List<Vector3>();
 
@@ -130,6 +139,7 @@ public class RoomManager : MonoBehaviour
 
   Vector3? ResolvePositionConflicts(List<Vector3> positions)
   {
+    Debug.Log("Positions: " + positions.Count);
     if (positions.Count == 0)
     {
       return null;

@@ -1,14 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
+  public static RoomManager instance;
   public GameObject[] rooms;
+  public GameObject currentRoom;
+
+  // Singleton pattern
+  private void Awake()
+  {
+    if (instance == null)
+    {
+      instance = this;
+    }
+    else
+    {
+      Destroy(this);
+    }
+  }
+
   // Start is called before the first frame update
   void Start()
   {
-    InstantiateFirstRoom();
+    InstantiateAllRooms();
   }
 
   // Update is called once per frame
@@ -16,17 +30,45 @@ public class RoomManager : MonoBehaviour
   {
 
   }
-  void InstantiateRoom(int roomIndex)
+
+  void InstantiateAllRooms()
   {
-    Instantiate(rooms[roomIndex], transform.position, Quaternion.identity);
+    for (int i = 0; i < rooms.Length; i++)
+    {
+      // Calculate the position of the room based on its index and the specified distances
+      Vector3 position = new Vector3(i * 20f, 0, 0);
+
+      // Instantiate the room at the calculated position
+      GameObject room = Instantiate(rooms[i], position, Quaternion.identity);
+
+      // Deactivate the room
+      room.SetActive(false);
+
+      // If this is the first room, set it as the current room
+      if (i == 0)
+      {
+        currentRoom = room;
+      }
+
+      // Add a trigger collider to each room
+      room.AddComponent<BoxCollider2D>().isTrigger = true;
+    }
+
+    // Activate the first room
+    currentRoom.SetActive(true);
   }
-  void InstantiateRandomRoom()
+
+  // Called when the player enters a trigger collider
+  private void OnTriggerEnter2D(Collider2D other)
   {
-    int randomRoomIndex = Random.Range(0, rooms.Length);
-    InstantiateRoom(randomRoomIndex);
-  }
-  void InstantiateFirstRoom()
-  {
-    InstantiateRoom(0);
+    // Check if the collider belongs to a room
+    int roomIndex = System.Array.IndexOf(rooms, other.gameObject);
+    if (roomIndex != -1)
+    {
+      // Deactivate the current room and activate the new room
+      currentRoom.SetActive(false);
+      currentRoom = rooms[roomIndex];
+      currentRoom.SetActive(true);
+    }
   }
 }

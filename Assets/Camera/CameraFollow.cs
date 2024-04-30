@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 
 public class CameraFollow : MonoBehaviour
 {
-  [SerializeField] Transform player;
+  [SerializeField] Transform player = null;
   [SerializeField] Vector3 offset;
   [SerializeField] Vector3 minCameraPos = new(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
   [SerializeField] Vector3 maxCameraPos = new(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
@@ -14,6 +14,10 @@ public class CameraFollow : MonoBehaviour
 
   void Start()
   {
+    if (!player)
+    {
+      player = GameObject.FindWithTag("Player").transform;
+    }
     GetCameraBounds();
   }
 

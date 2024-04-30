@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-  public Vector3 spawnPoint = new Vector3(14.8197899f, 4.92129803f, 0);
-  private Vector3 roomCenter = new Vector3(0, 0, 0);
+  public bool playerHasVisited { get; set; }
+  public Vector3 spawnPoint = new Vector3(0, 0, 0);
   // Start is called before the first frame update
   void Start()
   {
-    transform.position = roomCenter;
     GameObject player = GameObject.FindWithTag("Player");
-    player.transform.position = spawnPoint;
+    if (spawnPoint != Vector3.zero)
+    {
+      player.transform.position = spawnPoint;
+    }
+
+    playerHasVisited = true;
   }
 
   // Update is called once per frame

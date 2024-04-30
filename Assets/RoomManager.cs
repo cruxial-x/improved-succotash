@@ -107,16 +107,17 @@ public class RoomManager : MonoBehaviour
         }
       }
 
-      // Choose the best position from possiblePositions based on some criteria (e.g., least distance from origin)
-      Vector3 position = ResolvePositionConflicts(possiblePositions);
+      Vector3? position = ResolvePositionConflicts(possiblePositions);
+      if (position != null)
+      {
+        // Instantiate the room at the chosen position
+        GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
+        roomPositions.Add(room, position.Value);
+        roomList.Add(room);
 
-      // Instantiate the room at the chosen position
-      GameObject room = Instantiate(roomPrefab, position, Quaternion.identity);
-      roomPositions.Add(room, position);
-      roomList.Add(room);
-
-      // Setup the room
-      SetupRoom(room, playerSize);
+        // Setup the room
+        SetupRoom(room, playerSize);
+      }
     }
 
     // Activate the first room
@@ -127,15 +128,13 @@ public class RoomManager : MonoBehaviour
     }
   }
 
-  Vector3 ResolvePositionConflicts(List<Vector3> positions)
+  Vector3? ResolvePositionConflicts(List<Vector3> positions)
   {
     if (positions.Count == 0)
     {
-      return new Vector3(0, 0, 0);  // Default position if no connections
+      return null;
     }
-    float averageX = positions.Average(pos => pos.x);
-    float averageY = positions.Average(pos => pos.y);
-    return new Vector3(averageX, averageY, 0);
+    return positions[0];
   }
 
   void SetupRoom(GameObject room, Vector2 playerSize)

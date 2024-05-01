@@ -107,7 +107,7 @@ public class RoomManager : MonoBehaviour
               }
               else if (HorizontalConnection(door, otherDoor))
               {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? -36f : 36f;
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? 36f : -36f;
                 newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
               }
               possiblePositions.Add(newPosition);

@@ -70,6 +70,7 @@ public class RoomManager : MonoBehaviour
     Vector2 roomSize = Vector2.zero;
     GameObject player = GameObject.FindGameObjectWithTag("Player");
     Vector2 playerSize = player.GetComponent<Collider2D>().bounds.size;
+    List<GameObject> retryRoomPrefabs = new List<GameObject>();
 
     Dictionary<GameObject, Vector3> roomPositions = new Dictionary<GameObject, Vector3>();
     List<GameObject> roomList = new List<GameObject>();
@@ -104,19 +105,7 @@ public class RoomManager : MonoBehaviour
           {
             if (validDoorConnections.ContainsKey(door) && validDoorConnections[door].Contains(otherDoor))
             {
-              Vector3 newPosition = Vector3.zero;
-              Vector3 doorPosition = room.GetDoorPosition(door);
-              Vector3 otherDoorPosition = otherRoom.GetDoorPosition(otherDoor);
-              if (VerticalConnection(door, otherDoor))
-              {
-                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -((roomSize.y / 2) + (otherRoomSize.y / 2)) : ((roomSize.y / 2) + (otherRoomSize.y / 2));
-                newPosition = new Vector3(otherPosition.x + otherDoorPosition.x - doorPosition.x, otherPosition.y + yOffset, 0);
-              }
-              else if (HorizontalConnection(door, otherDoor))
-              {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? ((roomSize.x / 2) + (otherRoomSize.x / 2)) : -((roomSize.x / 2) + (otherRoomSize.x / 2));
-                newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y + otherDoorPosition.y - doorPosition.y, 0);
-              }
+              Vector3 newPosition = CalculateNewPosition(room, door, otherRoom, otherDoor, roomSize, otherRoomSize, otherPosition);
               possiblePositions.Add(newPosition);
             }
           }
@@ -135,6 +124,62 @@ public class RoomManager : MonoBehaviour
         // Setup the room
         SetupRoom(room, playerSize);
       }
+      else
+      {
+        retryRoomPrefabs.Add(roomPrefab);
+      }
+    }
+    int maxAttempts = 10;
+    for (int attempt = 0; attempt < maxAttempts && retryRoomPrefabs.Count > 0; attempt++)
+    {
+      List<GameObject> stillFailing = new List<GameObject>();
+      foreach (GameObject roomPrefab in retryRoomPrefabs)
+      {
+        List<Door> roomDoors = roomPrefab.GetComponent<Room>().doors;
+        List<Vector3> possiblePositions = new List<Vector3>();
+
+        // Recalculate possible positions for the room
+        foreach (Door door in roomDoors)
+        {
+          foreach (var entry in roomPositions)
+          {
+            Room room = roomPrefab.GetComponent<Room>();
+            roomSize = room.RoomSize;
+            GameObject otherRoomGo = entry.Key;
+            Room otherRoom = otherRoomGo.GetComponent<Room>();
+            Vector2 otherRoomSize = otherRoom.RoomSize;
+            Vector3 otherPosition = entry.Value;
+            List<Door> otherRoomDoors = otherRoom.doors;
+
+            foreach (Door otherDoor in otherRoomDoors)
+            {
+              if (validDoorConnections.ContainsKey(door) && validDoorConnections[door].Contains(otherDoor))
+              {
+                Vector3 newPosition = CalculateNewPosition(room, door, otherRoom, otherDoor, roomSize, otherRoomSize, otherPosition);
+                possiblePositions.Add(newPosition);
+              }
+            }
+          }
+        }
+
+        Vector3? position = ResolvePositionConflicts(possiblePositions, roomPositions, roomSize);
+        if (position != null)
+        {
+          // Instantiate the room at the chosen position
+          GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
+          room.GetComponent<Room>().cam.SetRoomPosition(position.Value);
+          roomPositions.Add(room, position.Value);
+          roomList.Add(room);
+
+          // Setup the room
+          SetupRoom(room, playerSize);
+        }
+        else
+        {
+          stillFailing.Add(roomPrefab);
+        }
+      }
+      retryRoomPrefabs = stillFailing;
     }
 
     // Activate the first room
@@ -144,7 +189,23 @@ public class RoomManager : MonoBehaviour
       currentRoom = roomList[0];
     }
   }
-
+  Vector3 CalculateNewPosition(Room room, Door door, Room otherRoom, Door otherDoor, Vector2 roomSize, Vector2 otherRoomSize, Vector3 otherPosition)
+  {
+    Vector3 newPosition = Vector3.zero;
+    Vector3 doorPosition = room.GetComponent<Room>().GetDoorPosition(door);
+    Vector3 otherDoorPosition = otherRoom.GetComponent<Room>().GetDoorPosition(otherDoor);
+    if (VerticalConnection(door, otherDoor))
+    {
+      float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -((roomSize.y / 2) + (otherRoomSize.y / 2)) : ((roomSize.y / 2) + (otherRoomSize.y / 2));
+      newPosition = new Vector3(otherPosition.x + otherDoorPosition.x - doorPosition.x, otherPosition.y + yOffset, 0);
+    }
+    else if (HorizontalConnection(door, otherDoor))
+    {
+      float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? ((roomSize.x / 2) + (otherRoomSize.x / 2)) : -((roomSize.x / 2) + (otherRoomSize.x / 2));
+      newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y + otherDoorPosition.y - doorPosition.y, 0);
+    }
+    return newPosition;
+  }
   Vector3? ResolvePositionConflicts(List<Vector3> positions, Dictionary<GameObject, Vector3> roomPositions, Vector2 newRoomSize)
   {
     foreach (var position in positions)
@@ -174,7 +235,6 @@ public class RoomManager : MonoBehaviour
     Debug.Log("No valid positions found due to overlaps");
     return null;
   }
-
   void SetupRoom(GameObject room, Vector2 playerSize)
   {
     GameObject triggerObject = new("Trigger");

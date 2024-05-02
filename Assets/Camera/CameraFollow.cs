@@ -6,8 +6,8 @@ using UnityEngine.U2D;
 public class CameraFollow : MonoBehaviour
 {
   [SerializeField] Vector3 offset;
-  [SerializeField] Vector3 minCameraPos = new(0, 0, 0);
-  [SerializeField] Vector3 maxCameraPos = new(0, 0, 0);
+  public Vector3 minCameraPos = new(0, 0, 0);
+  public Vector3 maxCameraPos = new(0, 0, 0);
   [HideInInspector] public Vector3 minEdgePos;
   [HideInInspector] public Vector3 maxEdgePos;
   private Camera cam;
@@ -44,6 +44,10 @@ public class CameraFollow : MonoBehaviour
     // Calculate the bounds for the edges of the camera
     minEdgePos = minCameraPos - new Vector3(width / 2, height / 2, 0);
     maxEdgePos = maxCameraPos + new Vector3(width / 2, height / 2, 0);
+  }
+  public Vector2 GetBoundsSize()
+  {
+    return new Vector2(maxEdgePos.x - minEdgePos.x, maxEdgePos.y - minEdgePos.y);
   }
   void OnDrawGizmos()
   {

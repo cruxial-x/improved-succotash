@@ -92,6 +92,7 @@ public class RoomManager : MonoBehaviour
         foreach (var entry in roomPositions)
         {
           GameObject otherRoom = entry.Key;
+          Vector2 otherRoomSize = otherRoom.GetComponent<Room>().cam.GetBoundsSize();
           Vector3 otherPosition = entry.Value;
           List<Door> otherRoomDoors = otherRoom.GetComponent<Room>().doors;
 
@@ -102,12 +103,12 @@ public class RoomManager : MonoBehaviour
               Vector3 newPosition = Vector3.zero;
               if (VerticalConnection(door, otherDoor))
               {
-                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -20f : 20f;
+                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -otherRoomSize.y : otherRoomSize.y;
                 newPosition = new Vector3(otherPosition.x, otherPosition.y + yOffset, 0);
               }
               else if (HorizontalConnection(door, otherDoor))
               {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? 36f : -36f;
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? otherRoomSize.x : -otherRoomSize.x;
                 newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
               }
               possiblePositions.Add(newPosition);
@@ -150,16 +151,14 @@ public class RoomManager : MonoBehaviour
 
   void SetupRoom(GameObject room, Vector2 playerSize)
   {
-    Camera roomCamera = room.GetComponentInChildren<Camera>();
-    float height = 2f * roomCamera.orthographicSize;
-    float width = height * roomCamera.aspect;
-
     GameObject triggerObject = new GameObject("Trigger");
     triggerObject.transform.position = room.transform.position;
+    Vector2 roomSize = room.GetComponent<Room>().cam.GetBoundsSize();
+    Debug.Log("Room bounds size: " + roomSize);
 
     BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
     collider.isTrigger = true;
-    collider.size = new Vector2(width - playerSize.x, height - playerSize.y);
+    collider.size = new Vector2(roomSize.x - playerSize.x, roomSize.y - playerSize.y);
 
     RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
     roomTrigger.room = room;

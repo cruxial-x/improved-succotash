@@ -13,13 +13,21 @@ public class CameraFollow : MonoBehaviour
   private Camera cam;
   private Transform player;
 
-  void Start()
+  void Awake()
   {
     player = GameObject.FindWithTag("Player").transform;
     cam = GetComponent<Camera>();
     GetCameraBounds();
   }
+  public void SetRoomPosition(Vector3 roomPosition)
+  {
+    // Adjust the camera's min and max positions by the room's position
+    minCameraPos += roomPosition;
+    maxCameraPos += roomPosition;
 
+    // Update the camera's edge positions
+    GetCameraBounds();
+  }
   void LateUpdate()
   {
     float posX = Mathf.Clamp(player.position.x + offset.x, minCameraPos.x, maxCameraPos.x);

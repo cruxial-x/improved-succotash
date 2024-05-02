@@ -1337,6 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 0, y: 0, z: 0}
   doors: 030000000b000000
+  cam: {fileID: 6333035842675660762}
 --- !u!1001 &641886067664449602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1417,11 +1418,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: maxEdgePos.x
-      value: 0
+      value: 17.777779
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: maxEdgePos.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: maxEdgePos.z
@@ -1429,11 +1430,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: minEdgePos.x
-      value: 0
+      value: -17.777779
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: minEdgePos.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: minEdgePos.z
@@ -1517,3 +1518,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6480712210361874037, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
   m_PrefabInstance: {fileID: 7550070325685972788}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6333035842675660762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+  m_PrefabInstance: {fileID: 7550070325685972788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e20c23c15eed147886213bd1ddfadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

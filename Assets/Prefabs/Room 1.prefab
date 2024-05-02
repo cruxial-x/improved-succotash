@@ -5403,6 +5403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 14.81979, y: 4.921298, z: 0}
   doors: 02000000
+  cam: {fileID: 2265343444406274118}
 --- !u!1001 &2329583261725864104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5508,6 +5509,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+--- !u!114 &2265343444406274118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+  m_PrefabInstance: {fileID: 2329583261725864104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e20c23c15eed147886213bd1ddfadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8765213001985443549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6480712210361874037, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}

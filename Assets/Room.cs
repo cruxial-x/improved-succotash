@@ -9,6 +9,7 @@ public class Room : MonoBehaviour
   public Camera roomCamera { get; private set; }
   public List<Door> doors = new List<Door>();
   public bool IsStartRoom { get; set; }
+  public CameraFollow cam;
   // Start is called before the first frame update
   void Start()
   {

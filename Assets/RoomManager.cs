@@ -121,6 +121,7 @@ public class RoomManager : MonoBehaviour
       {
         // Instantiate the room at the chosen position
         GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
+        room.GetComponent<Room>().cam.SetRoomPosition(position.Value);
         roomPositions.Add(room, position.Value);
         roomList.Add(room);
 

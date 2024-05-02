@@ -618,11 +618,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rooms:
   - {fileID: 8669295670009253915, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
+  - {fileID: 8669295670009253915, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
   - {fileID: 8669295670009253915, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
   - {fileID: 8669295670009253915, guid: 47e207c1f7ce61644beaf50199432874, type: 3}
   - {fileID: 8669295670009253915, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-  - {fileID: 8669295670009253915, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
   currentRoom: {fileID: 0}
+  roomList: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +9,7 @@ public class RoomManager : MonoBehaviour
   public static RoomManager instance;
   public GameObject[] rooms;
   public GameObject currentRoom;
+  public List<GameObject> roomList { get; private set; } = new List<GameObject>();
   public Dictionary<Door, List<Door>> validDoorConnections = new Dictionary<Door, List<Door>>
     {
         { Door.TopMiddle, new List<Door> { Door.BottomMiddle } },
@@ -29,10 +32,11 @@ public class RoomManager : MonoBehaviour
     if (instance == null)
     {
       instance = this;
+      DontDestroyOnLoad(gameObject);
     }
-    else
+    else if (instance != this)
     {
-      Destroy(this);
+      Destroy(gameObject);
     }
   }
 
@@ -45,6 +49,10 @@ public class RoomManager : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (Input.GetKeyDown(KeyCode.R))
+    {
+      RestartAndShuffle();
+    }
 
   }
   bool HorizontalConnection(Door door1, Door door2)
@@ -73,7 +81,6 @@ public class RoomManager : MonoBehaviour
     List<GameObject> retryRoomPrefabs = new List<GameObject>();
 
     Dictionary<GameObject, Vector3> roomPositions = new Dictionary<GameObject, Vector3>();
-    List<GameObject> roomList = new List<GameObject>();
     // Instantiate the first room at the origin
     if (rooms.Length > 0)
     {
@@ -272,5 +279,31 @@ public class RoomManager : MonoBehaviour
     {
       roomCamera.enabled = false;
     }
+  }
+  public void ClearAllRooms()
+  {
+    foreach (var room in roomList)
+    {
+      Destroy(room);
+    }
+    roomList.Clear();
+  }
+  void ShuffleRooms()
+  {
+    var firstRoom = rooms[0];
+    var shuffledRooms = rooms.Skip(1).OrderBy(x => Random.value).ToList();
+    shuffledRooms.Insert(0, firstRoom);
+    rooms = shuffledRooms.ToArray();
+  }
+  public void RestartAndShuffle()
+  {
+    ClearAllRooms();
+    ShuffleRooms();
+    StartCoroutine(ReloadSceneAndInstantiateRooms());
+  }
+  private IEnumerator ReloadSceneAndInstantiateRooms()
+  {
+    yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    InstantiateAllRooms();
   }
 }

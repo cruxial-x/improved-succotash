@@ -95,6 +95,7 @@ public class RoomManager : MonoBehaviour
           Vector2 roomSize = room.RoomSize;
           GameObject otherRoomGo = entry.Key;
           Room otherRoom = otherRoomGo.GetComponent<Room>();
+          Vector2 otherRoomSize = otherRoom.RoomSize;
           Vector3 otherPosition = entry.Value;
           List<Door> otherRoomDoors = otherRoom.doors;
 
@@ -105,12 +106,12 @@ public class RoomManager : MonoBehaviour
               Vector3 newPosition = Vector3.zero;
               if (VerticalConnection(door, otherDoor))
               {
-                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -roomSize.y : roomSize.y;
+                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -(roomSize.y + otherRoomSize.y) / 2 : (roomSize.y + otherRoomSize.y) / 2;
                 newPosition = new Vector3(otherPosition.x, otherPosition.y + yOffset, 0);
               }
               else if (HorizontalConnection(door, otherDoor))
               {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? roomSize.x : -roomSize.x;
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? (roomSize.x + otherRoomSize.x) / 2 : -(roomSize.x + otherRoomSize.x) / 2;
                 newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
               }
               possiblePositions.Add(newPosition);
@@ -153,9 +154,9 @@ public class RoomManager : MonoBehaviour
 
   void SetupRoom(GameObject room, Vector2 playerSize)
   {
-    GameObject triggerObject = new GameObject("Trigger");
+    GameObject triggerObject = new("Trigger");
     triggerObject.transform.position = room.transform.position;
-    Vector2 roomSize = room.GetComponent<Room>().cam.GetBoundsSize();
+    Vector2 roomSize = room.GetComponent<Room>().RoomSize;
     Debug.Log("Room bounds size: " + roomSize);
 
     BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();

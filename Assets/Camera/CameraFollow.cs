@@ -5,19 +5,18 @@ using UnityEngine.U2D;
 
 public class CameraFollow : MonoBehaviour
 {
-  [SerializeField] Transform player = null;
   [SerializeField] Vector3 offset;
-  [SerializeField] Vector3 minCameraPos = new(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
-  [SerializeField] Vector3 maxCameraPos = new(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
+  [SerializeField] Vector3 minCameraPos = new(0, 0, 0);
+  [SerializeField] Vector3 maxCameraPos = new(0, 0, 0);
   [HideInInspector] public Vector3 minEdgePos;
   [HideInInspector] public Vector3 maxEdgePos;
+  private Camera cam;
+  private Transform player;
 
   void Start()
   {
-    if (!player)
-    {
-      player = GameObject.FindWithTag("Player").transform;
-    }
+    player = GameObject.FindWithTag("Player").transform;
+    cam = GetComponent<Camera>();
     GetCameraBounds();
   }
 
@@ -31,8 +30,8 @@ public class CameraFollow : MonoBehaviour
   void GetCameraBounds()
   {
     // Get the camera's size
-    float height = Camera.main.orthographicSize * 2;
-    float width = height * Camera.main.aspect;
+    float height = cam.orthographicSize * 2;
+    float width = height * cam.aspect;
 
     // Calculate the bounds for the edges of the camera
     minEdgePos = minCameraPos - new Vector3(width / 2, height / 2, 0);
@@ -40,6 +39,7 @@ public class CameraFollow : MonoBehaviour
   }
   void OnDrawGizmos()
   {
+    if (cam == null) cam = GetComponent<Camera>();
     GetCameraBounds();
     // Draw a red line box representing the camera bounds
     Gizmos.color = Color.red;

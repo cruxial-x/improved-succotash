@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -222,7 +221,7 @@ public class RoomManager : MonoBehaviour
       {
         GameObject existingRoom = kvp.Key;
         Vector3 existingPosition = kvp.Value;
-        Vector2 existingRoomSize = existingRoom.GetComponent<Room>().RoomSize;  // Assuming Room has a RoomSize property
+        Vector2 existingRoomSize = existingRoom.GetComponent<Room>().RoomSize;
 
         // Calculate if rooms overlap using actual room dimensions
         if (Mathf.Abs(position.x - existingPosition.x) < (newRoomSize.x / 2 + existingRoomSize.x / 2) &&

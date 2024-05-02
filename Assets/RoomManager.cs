@@ -67,6 +67,7 @@ public class RoomManager : MonoBehaviour
   }
   void InstantiateAllRooms()
   {
+    Vector2 roomSize = Vector2.zero;
     GameObject player = GameObject.FindGameObjectWithTag("Player");
     Vector2 playerSize = player.GetComponent<Collider2D>().bounds.size;
 
@@ -92,7 +93,7 @@ public class RoomManager : MonoBehaviour
         foreach (var entry in roomPositions)
         {
           Room room = roomPrefab.GetComponent<Room>();
-          Vector2 roomSize = room.RoomSize;
+          roomSize = room.RoomSize;
           GameObject otherRoomGo = entry.Key;
           Room otherRoom = otherRoomGo.GetComponent<Room>();
           Vector2 otherRoomSize = otherRoom.RoomSize;
@@ -120,7 +121,7 @@ public class RoomManager : MonoBehaviour
         }
       }
 
-      Vector3? position = ResolvePositionConflicts(possiblePositions);
+      Vector3? position = ResolvePositionConflicts(possiblePositions, roomPositions, roomSize);
       if (position != null)
       {
         // Instantiate the room at the chosen position
@@ -142,14 +143,34 @@ public class RoomManager : MonoBehaviour
     }
   }
 
-  Vector3? ResolvePositionConflicts(List<Vector3> positions)
+  Vector3? ResolvePositionConflicts(List<Vector3> positions, Dictionary<GameObject, Vector3> roomPositions, Vector2 newRoomSize)
   {
-    Debug.Log("Positions: " + positions.Count);
-    if (positions.Count == 0)
+    foreach (var position in positions)
     {
-      return null;
+      bool overlaps = false;
+      foreach (var kvp in roomPositions)
+      {
+        GameObject existingRoom = kvp.Key;
+        Vector3 existingPosition = kvp.Value;
+        Vector2 existingRoomSize = existingRoom.GetComponent<Room>().RoomSize;  // Assuming Room has a RoomSize property
+
+        // Calculate if rooms overlap using actual room dimensions
+        if (Mathf.Abs(position.x - existingPosition.x) < (newRoomSize.x / 2 + existingRoomSize.x / 2) &&
+            Mathf.Abs(position.y - existingPosition.y) < (newRoomSize.y / 2 + existingRoomSize.y / 2))
+        {
+          overlaps = true;
+          Debug.Log($"Overlap detected between new position {position} and existing position {existingPosition} with new room size {newRoomSize} and existing room size {existingRoomSize}");
+          break;
+        }
+      }
+      if (!overlaps)
+      {
+        Debug.Log($"No overlap found, position {position} is valid");
+        return position;
+      }
     }
-    return positions[0];
+    Debug.Log("No valid positions found due to overlaps");
+    return null;
   }
 
   void SetupRoom(GameObject room, Vector2 playerSize)

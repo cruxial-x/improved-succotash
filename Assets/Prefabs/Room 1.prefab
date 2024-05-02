@@ -5417,7 +5417,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+      propertyPath: maxEdgePos.x
+      value: 17.777779
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+      propertyPath: maxEdgePos.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+      propertyPath: minEdgePos.x
+      value: -17.777779
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
+      propertyPath: minEdgePos.y
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
       propertyPath: maxCameraPos.x

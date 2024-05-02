@@ -91,10 +91,12 @@ public class RoomManager : MonoBehaviour
       {
         foreach (var entry in roomPositions)
         {
-          GameObject otherRoom = entry.Key;
-          Vector2 otherRoomSize = otherRoom.GetComponent<Room>().cam.GetBoundsSize();
+          Room room = roomPrefab.GetComponent<Room>();
+          Vector2 roomSize = room.RoomSize;
+          GameObject otherRoomGo = entry.Key;
+          Room otherRoom = otherRoomGo.GetComponent<Room>();
           Vector3 otherPosition = entry.Value;
-          List<Door> otherRoomDoors = otherRoom.GetComponent<Room>().doors;
+          List<Door> otherRoomDoors = otherRoom.doors;
 
           foreach (Door otherDoor in otherRoomDoors)
           {
@@ -103,12 +105,12 @@ public class RoomManager : MonoBehaviour
               Vector3 newPosition = Vector3.zero;
               if (VerticalConnection(door, otherDoor))
               {
-                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -otherRoomSize.y : otherRoomSize.y;
+                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -roomSize.y : roomSize.y;
                 newPosition = new Vector3(otherPosition.x, otherPosition.y + yOffset, 0);
               }
               else if (HorizontalConnection(door, otherDoor))
               {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? otherRoomSize.x : -otherRoomSize.x;
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? roomSize.x : -roomSize.x;
                 newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
               }
               possiblePositions.Add(newPosition);

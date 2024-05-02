@@ -10,6 +10,13 @@ public class Room : MonoBehaviour
   public List<Door> doors = new List<Door>();
   public bool IsStartRoom { get; set; }
   public CameraFollow cam;
+  public Vector2 RoomSize
+  {
+    get
+    {
+      return cam.GetBoundsSize();
+    }
+  }
   // Start is called before the first frame update
   void Start()
   {

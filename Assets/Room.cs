@@ -10,6 +10,7 @@ public class Room : MonoBehaviour
   public List<Door> doors = new List<Door>();
   public bool IsStartRoom { get; set; }
   public CameraFollow cam;
+  public float offset = 3;
   public Vector2 RoomSize
   {
     get
@@ -31,16 +32,16 @@ public class Room : MonoBehaviour
   {
     Door.TopMiddle => new Vector3(0, RoomSize.y / 2, 0),
     Door.BottomMiddle => new Vector3(0, -RoomSize.y / 2, 0),
-    Door.TopLeft => new Vector3(-RoomSize.x / 2, RoomSize.y / 2, 0),
-    Door.BottomLeft => new Vector3(-RoomSize.x / 2, -RoomSize.y / 2, 0),
-    Door.TopRight => new Vector3(RoomSize.x / 2, RoomSize.y / 2, 0),
-    Door.BottomRight => new Vector3(RoomSize.x / 2, -RoomSize.y / 2, 0),
-    Door.LeftTop => new Vector3(-RoomSize.x / 2, RoomSize.y / 2, 0),
-    Door.RightTop => new Vector3(RoomSize.x / 2, RoomSize.y / 2, 0),
+    Door.TopLeft => new Vector3(-RoomSize.x / 2 + offset, RoomSize.y / 2, 0),
+    Door.BottomLeft => new Vector3(-RoomSize.x / 2 + offset, -RoomSize.y / 2, 0),
+    Door.TopRight => new Vector3(RoomSize.x / 2 - offset, RoomSize.y / 2, 0),
+    Door.BottomRight => new Vector3(RoomSize.x / 2 - offset, -RoomSize.y / 2, 0),
+    Door.LeftTop => new Vector3(-RoomSize.x / 2, RoomSize.y / 2 - offset, 0),
+    Door.RightTop => new Vector3(RoomSize.x / 2, RoomSize.y / 2 - offset, 0),
     Door.LeftMiddle => new Vector3(-RoomSize.x / 2, 0, 0),
     Door.RightMiddle => new Vector3(RoomSize.x / 2, 0, 0),
-    Door.LeftBottom => new Vector3(-RoomSize.x / 2, -RoomSize.y / 2, 0),
-    Door.RightBottom => new Vector3(RoomSize.x / 2, -RoomSize.y / 2, 0),
+    Door.LeftBottom => new Vector3(-RoomSize.x / 2, -RoomSize.y / 2 + offset, 0),
+    Door.RightBottom => new Vector3(RoomSize.x / 2, -RoomSize.y / 2 + offset, 0),
     _ => Vector3.zero
   };
   // Update is called once per frame

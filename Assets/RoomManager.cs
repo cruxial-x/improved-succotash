@@ -105,15 +105,17 @@ public class RoomManager : MonoBehaviour
             if (validDoorConnections.ContainsKey(door) && validDoorConnections[door].Contains(otherDoor))
             {
               Vector3 newPosition = Vector3.zero;
+              Vector3 doorPosition = room.GetDoorPosition(door);
+              Vector3 otherDoorPosition = otherRoom.GetDoorPosition(otherDoor);
               if (VerticalConnection(door, otherDoor))
               {
-                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -(roomSize.y + otherRoomSize.y) / 2 : (roomSize.y + otherRoomSize.y) / 2;
-                newPosition = new Vector3(otherPosition.x, otherPosition.y + yOffset, 0);
+                float yOffset = (door == Door.TopMiddle || door == Door.TopLeft || door == Door.TopRight) ? -((roomSize.y / 2) + (otherRoomSize.y / 2)) : ((roomSize.y / 2) + (otherRoomSize.y / 2));
+                newPosition = new Vector3(otherPosition.x + otherDoorPosition.x - doorPosition.x, otherPosition.y + yOffset, 0);
               }
               else if (HorizontalConnection(door, otherDoor))
               {
-                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? (roomSize.x + otherRoomSize.x) / 2 : -(roomSize.x + otherRoomSize.x) / 2;
-                newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y, 0);
+                float xOffset = (door == Door.LeftMiddle || door == Door.LeftTop || door == Door.LeftBottom) ? ((roomSize.x / 2) + (otherRoomSize.x / 2)) : -((roomSize.x / 2) + (otherRoomSize.x / 2));
+                newPosition = new Vector3(otherPosition.x + xOffset, otherPosition.y + otherDoorPosition.y - doorPosition.y, 0);
               }
               possiblePositions.Add(newPosition);
             }

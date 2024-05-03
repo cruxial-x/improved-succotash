@@ -237,6 +237,7 @@ MonoBehaviour:
   jumpAnimationFinished: 1
   normalCollider: {fileID: 819097156}
   slideCollider: {fileID: 819097159}
+  detachBuffer: 0.2
 --- !u!95 &819097152 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1160356261127867848, guid: d96cb52ce20b1f04ba75420396a51412, type: 3}

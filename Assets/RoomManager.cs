@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,17 +136,20 @@ public class RoomManager : MonoBehaviour
         retryRoomPrefabs.Add(roomPrefab);
       }
     }
-    int maxAttempts = 10;
+    int maxAttempts = 100;
     for (int attempt = 0; attempt < maxAttempts && retryRoomPrefabs.Count > 0; attempt++)
     {
+      // Shuffle the list of rooms to change the order of processing
+      retryRoomPrefabs = retryRoomPrefabs.OrderBy(a => Guid.NewGuid()).ToList();
+
       List<GameObject> stillFailing = new List<GameObject>();
       foreach (GameObject roomPrefab in retryRoomPrefabs)
       {
         List<Door> roomDoors = roomPrefab.GetComponent<Room>().doors;
         List<Vector3> possiblePositions = new List<Vector3>();
 
-        // Recalculate possible positions for the room
-        foreach (Door door in roomDoors)
+        // Consider shuffling doors here if needed
+        foreach (Door door in roomDoors.OrderBy(d => Guid.NewGuid()))
         {
           foreach (var entry in roomPositions)
           {
@@ -290,7 +294,7 @@ public class RoomManager : MonoBehaviour
   void ShuffleRooms()
   {
     var firstRoom = rooms[0];
-    var shuffledRooms = rooms.Skip(1).OrderBy(x => Random.value).ToList();
+    var shuffledRooms = rooms.Skip(1).OrderBy(x => UnityEngine.Random.value).ToList();
     shuffledRooms.Insert(0, firstRoom);
     rooms = shuffledRooms.ToArray();
   }

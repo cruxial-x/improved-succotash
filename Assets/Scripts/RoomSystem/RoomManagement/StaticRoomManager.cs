@@ -14,4 +14,8 @@ public class StaticRoomManager : RoomManager
     rooms[0].SetActive(true);
     currentRoom = rooms[0];
   }
+  void Update()
+  {
+    Dev.Log("Test ");
+  }
 }

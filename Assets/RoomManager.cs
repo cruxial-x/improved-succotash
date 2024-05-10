@@ -43,7 +43,22 @@ public class RoomManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    InstantiateAllRooms();
+    if (rooms.Length > 0)
+    {
+      InstantiateAllRooms();
+    }
+    else
+    {
+      Vector2 playerSize = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>().bounds.size;
+      rooms = GameObject.FindGameObjectsWithTag("Room");
+      foreach (var room in rooms)
+      {
+        SetupRoom(room, playerSize);
+      }
+      rooms[0].GetComponent<Room>().IsStartRoom = true;
+      rooms[0].SetActive(true);
+      currentRoom = rooms[0];
+    }
   }
 
   // Update is called once per frame

@@ -1287,7 +1287,7 @@ GameObject:
   - component: {fileID: 3147376142360911466}
   m_Layer: 0
   m_Name: Room 2
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1338,6 +1338,7 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 0, z: 0}
   doors: 030000000b000000
   cam: {fileID: 6333035842675660762}
+  offset: 3
 --- !u!1001 &641886067664449602
 PrefabInstance:
   m_ObjectHideFlags: 0

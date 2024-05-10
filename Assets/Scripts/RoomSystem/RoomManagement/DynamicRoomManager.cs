@@ -4,11 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class RoomManager : MonoBehaviour
+public class DynamicRoomManager : RoomManager
 {
-  public static RoomManager instance;
   public GameObject[] rooms;
-  public GameObject currentRoom;
   public List<GameObject> roomList { get; private set; } = new List<GameObject>();
   public Dictionary<Door, List<Door>> validDoorConnections = new Dictionary<Door, List<Door>>
     {
@@ -46,18 +44,6 @@ public class RoomManager : MonoBehaviour
     if (rooms.Length > 0)
     {
       InstantiateAllRooms();
-    }
-    else
-    {
-      Vector2 playerSize = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>().bounds.size;
-      rooms = GameObject.FindGameObjectsWithTag("Room");
-      foreach (var room in rooms)
-      {
-        SetupRoom(room, playerSize);
-      }
-      rooms[0].GetComponent<Room>().IsStartRoom = true;
-      rooms[0].SetActive(true);
-      currentRoom = rooms[0];
     }
   }
 
@@ -103,7 +89,7 @@ public class RoomManager : MonoBehaviour
       firstRoom.GetComponent<Room>().IsStartRoom = true;
       roomPositions.Add(firstRoom, Vector3.zero);
       roomList.Add(firstRoom);
-      SetupRoom(firstRoom, playerSize);
+      RoomSetup.SetupRoom(firstRoom, playerSize);
     }
     for (int i = 1; i < rooms.Length; i++)
     {
@@ -139,12 +125,11 @@ public class RoomManager : MonoBehaviour
       {
         // Instantiate the room at the chosen position
         GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
-        room.GetComponent<Room>().cam.SetRoomPosition(position.Value);
         roomPositions.Add(room, position.Value);
         roomList.Add(room);
 
         // Setup the room
-        SetupRoom(room, playerSize);
+        RoomSetup.SetupRoom(room, playerSize);
       }
       else
       {
@@ -192,12 +177,11 @@ public class RoomManager : MonoBehaviour
         {
           // Instantiate the room at the chosen position
           GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
-          room.GetComponent<Room>().cam.SetRoomPosition(position.Value);
           roomPositions.Add(room, position.Value);
           roomList.Add(room);
 
           // Setup the room
-          SetupRoom(room, playerSize);
+          RoomSetup.SetupRoom(room, playerSize);
         }
         else
         {
@@ -259,44 +243,6 @@ public class RoomManager : MonoBehaviour
     }
     Debug.Log("No valid positions found due to overlaps");
     return null;
-  }
-  void SetupRoom(GameObject room, Vector2 playerSize)
-  {
-    GameObject triggerObject = new("Trigger");
-    triggerObject.transform.position = room.transform.position;
-    Vector2 roomSize = room.GetComponent<Room>().RoomSize;
-    Debug.Log("Room bounds size: " + roomSize);
-
-    BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
-    collider.isTrigger = true;
-    collider.size = new Vector2(roomSize.x - playerSize.x, roomSize.y - playerSize.y);
-
-    RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
-    roomTrigger.room = room;
-
-    room.SetActive(false);
-  }
-  public void EnableRoomCamera(GameObject room)
-  {
-    if (!room.activeInHierarchy)
-    {
-      room.SetActive(true);
-    }
-
-    Camera roomCamera = room.GetComponentInChildren<Camera>();
-    if (roomCamera != null)
-    {
-      roomCamera.enabled = true;
-    }
-  }
-
-  public void DisableRoomCamera(GameObject room)
-  {
-    Camera roomCamera = room.GetComponentInChildren<Camera>();
-    if (roomCamera != null)
-    {
-      roomCamera.enabled = false;
-    }
   }
   public void ClearAllRooms()
   {

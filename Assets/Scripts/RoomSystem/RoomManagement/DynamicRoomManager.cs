@@ -24,20 +24,6 @@ public class DynamicRoomManager : RoomManager
         { Door.RightBottom, new List<Door> { Door.LeftBottom } }
     };
 
-  // Singleton pattern
-  private void Awake()
-  {
-    if (instance == null)
-    {
-      instance = this;
-      DontDestroyOnLoad(gameObject);
-    }
-    else if (instance != this)
-    {
-      Destroy(gameObject);
-    }
-  }
-
   // Start is called before the first frame update
   void Start()
   {

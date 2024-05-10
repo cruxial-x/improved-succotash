@@ -37,7 +37,7 @@ public class CountTiles : MonoBehaviour
       }
     }
     // Print the count
-    Debug.Log("Number of tiles: " + count);
+    Dev.Log("Number of tiles: " + count);
   }
   void GetWidthAndHeightInTiles()
   {
@@ -49,7 +49,7 @@ public class CountTiles : MonoBehaviour
     int width = bounds.size.x;
     int height = bounds.size.y;
     // Print the width and height
-    Debug.Log("Width in tiles: " + width);
-    Debug.Log("Height in tiles: " + height);
+    Dev.Log("Width in tiles: " + width);
+    Dev.Log("Height in tiles: " + height);
   }
 }

@@ -217,17 +217,17 @@ public class DynamicRoomManager : RoomManager
             Mathf.Abs(position.y - existingPosition.y) < (newRoomSize.y / 2 + existingRoomSize.y / 2))
         {
           overlaps = true;
-          Debug.Log($"Overlap detected between new position {position} and existing position {existingPosition} with new room size {newRoomSize} and existing room size {existingRoomSize}");
+          Dev.Log($"Overlap detected between new position {position} and existing position {existingPosition} with new room size {newRoomSize} and existing room size {existingRoomSize}");
           break;
         }
       }
       if (!overlaps)
       {
-        Debug.Log($"No overlap found, position {position} is valid");
+        Dev.Log($"No overlap found, position {position} is valid");
         return position;
       }
     }
-    Debug.Log("No valid positions found due to overlaps");
+    Dev.Log("No valid positions found due to overlaps");
     return null;
   }
   public void ClearAllRooms()

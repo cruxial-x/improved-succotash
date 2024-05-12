@@ -18,4 +18,16 @@ public abstract class RoomManager : MonoBehaviour
       Destroy(gameObject);
     }
   }
+  public void SwitchRoom(GameObject newRoom)
+  {
+    if (currentRoom != null)
+    {
+      currentRoom.SetActive(false);
+      CameraManager.DisableRoomCamera(currentRoom);
+    }
+
+    currentRoom = newRoom;
+    currentRoom.SetActive(true);
+    CameraManager.EnableRoomCamera(currentRoom);
+  }
 }

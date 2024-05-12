@@ -7,10 +7,7 @@ public class RoomTrigger : MonoBehaviour
   {
     if (other.CompareTag("Player"))
     {
-      RoomManager.instance.currentRoom.SetActive(false);
-      CameraManager.DisableRoomCamera(RoomManager.instance.currentRoom);
-      RoomManager.instance.currentRoom = room;
-      CameraManager.EnableRoomCamera(room);
+      RoomManager.instance.SwitchRoom(room);
     }
   }
 }

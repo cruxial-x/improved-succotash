@@ -25,11 +25,9 @@ public abstract class RoomManager : MonoBehaviour
     if (currentRoom != null)
     {
       currentRoom.SetActive(false);
-      CameraManager.DisableRoomCamera(currentRoom);
     }
 
     currentRoom = newRoom;
     currentRoom.SetActive(true);
-    CameraManager.EnableRoomCamera(currentRoom);
   }
 }

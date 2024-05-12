@@ -6,6 +6,7 @@ public class Room : MonoBehaviour
 {
   public Vector3 spawnPoint = new Vector3(0, 0, 0);
   public List<Door> doors = new List<Door>();
+  public bool isVisited = false;
   public bool IsStartRoom { get; set; }
   private Camera cam;
   private Transform player;
@@ -37,7 +38,7 @@ public class Room : MonoBehaviour
     collider.size = new Vector2(roomSize.x - playerSize.x, roomSize.y - playerSize.y);
 
     RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
-    roomTrigger.room = this.gameObject;
+    roomTrigger.room = this;
 
     SetActive(false);
   }

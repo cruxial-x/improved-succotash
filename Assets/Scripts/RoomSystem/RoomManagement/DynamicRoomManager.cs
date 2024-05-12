@@ -75,7 +75,6 @@ public class DynamicRoomManager : RoomManager
     {
       GameObject firstRoom = Instantiate(rooms[0], Vector3.zero, Quaternion.identity);
       Room firstRoomComponent = firstRoom.GetComponent<Room>();
-      firstRoomComponent.IsStartRoom = true;
       roomPositions.Add(firstRoom, Vector3.zero);
       roomList.Add(firstRoomComponent);
       firstRoomComponent.Setup(playerSize);

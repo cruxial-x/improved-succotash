@@ -24,10 +24,11 @@ public abstract class RoomManager : MonoBehaviour
   {
     if (currentRoom != null)
     {
-      currentRoom.SetActive(false);
+      currentRoom.GetComponent<Room>().Disable();
     }
 
     currentRoom = newRoom;
     currentRoom.SetActive(true);
+    currentRoom.GetComponent<Room>().Enable();
   }
 }

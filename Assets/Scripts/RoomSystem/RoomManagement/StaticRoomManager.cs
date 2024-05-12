@@ -15,9 +15,5 @@ public class StaticRoomManager : RoomManager
       room.Setup(playerSize, minimapOverlayCamera);
       roomList.Add(room);
     }
-
-    roomObjects[0].GetComponent<Room>().IsStartRoom = true;
-    roomObjects[0].SetActive(true);
-    currentRoom = roomObjects[0];
   }
 }

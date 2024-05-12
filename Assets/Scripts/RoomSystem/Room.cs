@@ -2,19 +2,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
   public Vector3 spawnPoint = new Vector3(0, 0, 0);
   public List<Door> doors = new List<Door>();
   public bool isVisited = false;
-  public bool IsStartRoom { get; set; }
-  private Camera cam;
   private Transform player;
   private float doorOffset = 3;
   public Vector2 roomSize;
   [HideInInspector] public Vector3 minEdgePos;
   [HideInInspector] public Vector3 maxEdgePos;
+  private TilemapCollider2D[] tilemapColliders;
+  private Camera cam;
 
   public Vector2 RoomSize
   {
@@ -27,7 +28,6 @@ public class Room : MonoBehaviour
       return roomSize;
     }
   }
-
   public void Setup(Vector2 playerSize, Camera overlayCamera = null)
   {
     if (overlayCamera != null)
@@ -57,7 +57,24 @@ public class Room : MonoBehaviour
   {
     player = GameObject.FindWithTag("Player").transform;
     cam = GetComponentInChildren<Camera>();
+    tilemapColliders = GetComponentsInChildren<TilemapCollider2D>();
     InitializeRoom();
+  }
+  public void Disable()
+  {
+    foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+    {
+      tilemapCollider.enabled = false;
+    }
+    cam.gameObject.SetActive(false);
+  }
+  public void Enable()
+  {
+    foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+    {
+      tilemapCollider.enabled = true;
+    }
+    cam.gameObject.SetActive(true);
   }
 
   void InitializeRoom()
@@ -78,14 +95,6 @@ public class Room : MonoBehaviour
       minEdgePos = transform.position - new Vector3(width / 2, height / 2, 0);
       maxEdgePos = transform.position + new Vector3(width / 2, height / 2, 0);
       roomSize = new Vector2(Mathf.Abs(minEdgePos.x - maxEdgePos.x), Mathf.Abs(minEdgePos.y - maxEdgePos.y));
-    }
-  }
-
-  void Start()
-  {
-    if (spawnPoint != Vector3.zero && IsStartRoom)
-    {
-      player.transform.position = spawnPoint;
     }
   }
 

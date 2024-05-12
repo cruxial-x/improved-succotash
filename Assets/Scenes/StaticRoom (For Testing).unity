@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: swordsman
       objectReference: {fileID: 0}
+    - target: {fileID: 1822812799168413153, guid: ef74f7bbeb7d9cb4d88f3d7bba8d003b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4204157919140044050, guid: ef74f7bbeb7d9cb4d88f3d7bba8d003b, type: 3}
       propertyPath: detachBuffer
       value: 0.3
@@ -288,6 +292,10 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 1528059798}
+    - target: {fileID: 3657922182490329738, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4288605937065951531, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -529,7 +537,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 456
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

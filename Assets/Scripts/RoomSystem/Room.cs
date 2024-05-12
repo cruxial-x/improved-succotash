@@ -14,7 +14,10 @@ public class Room : MonoBehaviour
   public Vector2 roomSize;
   [HideInInspector] public Vector3 minEdgePos;
   [HideInInspector] public Vector3 maxEdgePos;
+  private Tilemap[] tilemaps;
   private TilemapCollider2D[] tilemapColliders;
+  private int[] initialLayers;
+  private SpriteRenderer[] spriteRenderers;
   private Camera cam;
 
   public Vector2 RoomSize
@@ -57,23 +60,76 @@ public class Room : MonoBehaviour
   {
     player = GameObject.FindWithTag("Player").transform;
     cam = GetComponentInChildren<Camera>();
+    cam.cullingMask = ~LayerMask.GetMask("Hidden");
+    tilemaps = GetComponentsInChildren<Tilemap>();
     tilemapColliders = GetComponentsInChildren<TilemapCollider2D>();
+    initialLayers = new int[tilemaps.Length];
+    spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+    for (int i = 0; i < tilemaps.Length; i++)
+    {
+      initialLayers[i] = tilemaps[i].gameObject.layer;
+    }
     InitializeRoom();
   }
   public void Disable()
   {
-    foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+    if (tilemapColliders != null)
+      foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+      {
+        tilemapCollider.enabled = false;
+      }
+    if (tilemaps != null)
     {
-      tilemapCollider.enabled = false;
+      for (int i = 0; i < tilemaps.Length; i++)
+      {
+        if (tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Ground") ||
+            tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+          tilemaps[i].gameObject.layer = LayerMask.NameToLayer("Hidden");
+        }
+        else
+        {
+          tilemaps[i].gameObject.SetActive(false);
+        }
+      }
     }
+    if (spriteRenderers != null)
+      foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+      {
+        spriteRenderer.enabled = false;
+      }
+
     cam.gameObject.SetActive(false);
   }
+
   public void Enable()
   {
-    foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+    if (tilemapColliders != null)
+      foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+      {
+        tilemapCollider.enabled = true;
+      }
+    if (tilemaps != null)
     {
-      tilemapCollider.enabled = true;
+      for (int i = 0; i < tilemaps.Length; i++)
+      {
+        if (tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Hidden"))
+        {
+          tilemaps[i].gameObject.layer = initialLayers[i];
+        }
+        else
+        {
+          tilemaps[i].gameObject.SetActive(true);
+        }
+      }
     }
+    if (spriteRenderers != null)
+      foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+      {
+        spriteRenderer.enabled = true;
+      }
+
     cam.gameObject.SetActive(true);
   }
 

@@ -9,7 +9,6 @@ public class RoomSetup
     Room roomComponent = room.GetComponent<Room>();
     Vector2 roomSize = roomComponent.RoomSize;
     Dev.Log("Room bounds size: " + roomSize);
-    roomComponent.cam.SetRoomPosition(room.transform.position);
 
     BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
     collider.isTrigger = true;

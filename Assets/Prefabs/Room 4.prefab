@@ -1364,8 +1364,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 0, y: 0, z: 0}
   doors: 00000000
-  cam: {fileID: 6333035842675660762}
-  offset: 3
+  roomSize: {x: 45.55556, y: 40}
+  minEdgePos: {x: 22.79222, y: -30, z: 0}
+  maxEdgePos: {x: 68.34778, y: 10, z: 0}
 --- !u!1001 &641886067664449602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1536,7 +1537,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6480712210361874037, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
@@ -1549,14 +1551,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6480712210361874037, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
   m_PrefabInstance: {fileID: 7550070325685972788}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6333035842675660762 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4549843428707743982, guid: 27e166599c3bf9d4395e85f9aee809a2, type: 3}
-  m_PrefabInstance: {fileID: 7550070325685972788}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e20c23c15eed147886213bd1ddfadd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

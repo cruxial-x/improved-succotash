@@ -18,6 +18,10 @@ public class Room : MonoBehaviour
   {
     get
     {
+      if (roomSize.Equals(Vector2.zero))
+      {
+        InitializeRoom();
+      }
       return roomSize;
     }
   }
@@ -35,6 +39,18 @@ public class Room : MonoBehaviour
     {
       minEdgePos = transform.position + new Vector3(-roomSize.x / 2, -roomSize.y / 2, 0);
       maxEdgePos = transform.position + new Vector3(roomSize.x / 2, roomSize.y / 2, 0);
+    }
+    else
+    {
+      if (cam == null) cam = GetComponentInChildren<Camera>();
+      // Get the camera's size
+      float height = cam.orthographicSize * 2;
+      float width = height * cam.aspect;
+
+      // Calculate the bounds for the edges of the camera
+      minEdgePos = transform.position - new Vector3(width / 2, height / 2, 0);
+      maxEdgePos = transform.position + new Vector3(width / 2, height / 2, 0);
+      roomSize = new Vector2(Mathf.Abs(minEdgePos.x - maxEdgePos.x), Mathf.Abs(minEdgePos.y - maxEdgePos.y));
     }
   }
 

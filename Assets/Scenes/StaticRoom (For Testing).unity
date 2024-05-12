@@ -192,14 +192,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3147376142360911466, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: roomSize.x
-      value: 55.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 4288605937065951531, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.58
@@ -240,48 +232,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: roomSize.x
-      value: 55.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: maxEdgePos.x
-      value: 73.35778
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: maxEdgePos.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: maxEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: minEdgePos.x
-      value: 17.802221
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: minEdgePos.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
-      propertyPath: minEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 8669295670009253915, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
       propertyPath: m_Name
       value: Room 5
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6333035842675660762, guid: 34a618f3f82ca174e9525e1ccffa91f2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -294,62 +249,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: roomSize.x
-      value: 35.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: maxEdgePos.x
-      value: 17.77778
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: maxEdgePos.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: maxEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: minEdgePos.x
-      value: -17.77778
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: minEdgePos.y
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: minEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: maxCameraPos.x
-      value: 17.77778
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: maxCameraPos.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: minCameraPos.y
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: roomSize.x
-      value: 35.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 4288605937065951531, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -394,8 +293,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2265343444406274118, guid: a84e8928a41b2b5449ec83da1f0e2b98, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -408,18 +306,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 985453951762279187, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: roomSize.x
-      value: 35.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 4288605937065951531, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -460,56 +346,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: roomSize.x
-      value: 35.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: roomSize.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: maxEdgePos.x
-      value: 17.77778
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: maxEdgePos.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: maxEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: minEdgePos.x
-      value: -17.77778
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: minEdgePos.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: minEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7579961502736346675, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8669295670009253915, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
       propertyPath: m_Name
       value: Room 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8669295670009253915, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6333035842675660762, guid: dc93b49538a605f4ab4410f51b6f4d2c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -522,18 +363,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3147376142360911466, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: roomSize.x
-      value: 45.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 3147376142360911466, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: roomSize.y
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 4288605937065951531, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.57
@@ -574,48 +403,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: roomSize.x
-      value: 45.55556
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: roomSize.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: maxEdgePos.x
-      value: 68.34778
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: maxEdgePos.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: maxEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: minEdgePos.x
-      value: 22.79222
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: minEdgePos.y
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
-      propertyPath: minEdgePos.z
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 8669295670009253915, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
       propertyPath: m_Name
       value: Room 4
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6333035842675660762, guid: 6e4b37c759fad24408eab08f68e5d3e1, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -14,11 +13,9 @@ public class Room : MonoBehaviour
   public Vector2 roomSize;
   [HideInInspector] public Vector3 minEdgePos;
   [HideInInspector] public Vector3 maxEdgePos;
-  private Tilemap[] tilemaps;
   private TilemapCollider2D[] tilemapColliders;
-  private int[] initialLayers;
-  private SpriteRenderer[] spriteRenderers;
   private Camera cam;
+  private Minimap miniMap;
 
   public Vector2 RoomSize
   {
@@ -37,6 +34,7 @@ public class Room : MonoBehaviour
     {
       var cameraData = cam.GetUniversalAdditionalCameraData();
       cameraData.cameraStack.Add(overlayCamera);
+      miniMap = new Minimap(this.gameObject);
     }
     GameObject triggerObject = new("Trigger");
     triggerObject.transform.position = this.transform.position;
@@ -49,7 +47,7 @@ public class Room : MonoBehaviour
     RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
     roomTrigger.room = this;
 
-    SetActive(false);
+    Disable();
   }
   public void SetActive(bool active)
   {
@@ -60,44 +58,20 @@ public class Room : MonoBehaviour
   {
     player = GameObject.FindWithTag("Player").transform;
     cam = GetComponentInChildren<Camera>();
-    cam.cullingMask = ~LayerMask.GetMask("Hidden");
-    tilemaps = GetComponentsInChildren<Tilemap>();
+    cam.cullingMask = ~LayerMask.GetMask("Hidden") & ~LayerMask.GetMask("Mapped");
     tilemapColliders = GetComponentsInChildren<TilemapCollider2D>();
-    initialLayers = new int[tilemaps.Length];
-    spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-
-    for (int i = 0; i < tilemaps.Length; i++)
-    {
-      initialLayers[i] = tilemaps[i].gameObject.layer;
-    }
     InitializeRoom();
   }
   public void Disable()
   {
+    if (miniMap != null)
+    {
+      miniMap.Hide();
+    }
     if (tilemapColliders != null)
       foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
       {
         tilemapCollider.enabled = false;
-      }
-    if (tilemaps != null)
-    {
-      for (int i = 0; i < tilemaps.Length; i++)
-      {
-        if (tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Ground") ||
-            tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-          tilemaps[i].gameObject.layer = LayerMask.NameToLayer("Hidden");
-        }
-        else
-        {
-          tilemaps[i].gameObject.SetActive(false);
-        }
-      }
-    }
-    if (spriteRenderers != null)
-      foreach (SpriteRenderer spriteRenderer in spriteRenderers)
-      {
-        spriteRenderer.enabled = false;
       }
 
     cam.gameObject.SetActive(false);
@@ -105,29 +79,14 @@ public class Room : MonoBehaviour
 
   public void Enable()
   {
+    if (miniMap != null)
+    {
+      miniMap.Show();
+    }
     if (tilemapColliders != null)
       foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
       {
         tilemapCollider.enabled = true;
-      }
-    if (tilemaps != null)
-    {
-      for (int i = 0; i < tilemaps.Length; i++)
-      {
-        if (tilemaps[i].gameObject.layer == LayerMask.NameToLayer("Hidden"))
-        {
-          tilemaps[i].gameObject.layer = initialLayers[i];
-        }
-        else
-        {
-          tilemaps[i].gameObject.SetActive(true);
-        }
-      }
-    }
-    if (spriteRenderers != null)
-      foreach (SpriteRenderer spriteRenderer in spriteRenderers)
-      {
-        spriteRenderer.enabled = true;
       }
 
     cam.gameObject.SetActive(true);

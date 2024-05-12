@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public abstract class RoomManager : MonoBehaviour
 {
   public static RoomManager instance;
+  public List<Room> roomList = new();
   public GameObject currentRoom;
 
   // Singleton pattern

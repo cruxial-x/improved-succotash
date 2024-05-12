@@ -26,6 +26,26 @@ public class Room : MonoBehaviour
     }
   }
 
+  public void Setup(Vector2 playerSize)
+  {
+    GameObject triggerObject = new("Trigger");
+    triggerObject.transform.position = this.transform.position;
+    Dev.Log("Room bounds size: " + roomSize);
+
+    BoxCollider2D collider = triggerObject.AddComponent<BoxCollider2D>();
+    collider.isTrigger = true;
+    collider.size = new Vector2(roomSize.x - playerSize.x, roomSize.y - playerSize.y);
+
+    RoomTrigger roomTrigger = triggerObject.AddComponent<RoomTrigger>();
+    roomTrigger.room = this.gameObject;
+
+    SetActive(false);
+  }
+  public void SetActive(bool active)
+  {
+    this.gameObject.SetActive(active);
+  }
+
   void Awake()
   {
     player = GameObject.FindWithTag("Player").transform;

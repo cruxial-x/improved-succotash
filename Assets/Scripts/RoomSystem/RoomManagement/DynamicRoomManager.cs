@@ -10,7 +10,6 @@ public class DynamicRoomManager : RoomManager
   [Range(0, 1)]
   public float overlapPercentage = 0.25f;
   public GameObject[] rooms;
-  public List<GameObject> roomList { get; private set; } = new List<GameObject>();
   public Dictionary<Door, List<Door>> validDoorConnections = new Dictionary<Door, List<Door>>
     {
         { Door.TopMiddle, new List<Door> { Door.BottomMiddle } },
@@ -75,9 +74,10 @@ public class DynamicRoomManager : RoomManager
     if (rooms.Length > 0)
     {
       GameObject firstRoom = Instantiate(rooms[0], Vector3.zero, Quaternion.identity);
-      firstRoom.GetComponent<Room>().IsStartRoom = true;
+      Room firstRoomComponent = firstRoom.GetComponent<Room>();
+      firstRoomComponent.IsStartRoom = true;
       roomPositions.Add(firstRoom, Vector3.zero);
-      roomList.Add(firstRoom);
+      roomList.Add(firstRoomComponent);
       RoomSetup.SetupRoom(firstRoom, playerSize);
     }
     for (int i = 1; i < rooms.Length; i++)
@@ -115,7 +115,7 @@ public class DynamicRoomManager : RoomManager
         // Instantiate the room at the chosen position
         GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
         roomPositions.Add(room, position.Value);
-        roomList.Add(room);
+        roomList.Add(room.GetComponent<Room>());
 
         // Setup the room
         RoomSetup.SetupRoom(room, playerSize);
@@ -167,7 +167,7 @@ public class DynamicRoomManager : RoomManager
           // Instantiate the room at the chosen position
           GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
           roomPositions.Add(room, position.Value);
-          roomList.Add(room);
+          roomList.Add(room.GetComponent<Room>());
 
           // Setup the room
           RoomSetup.SetupRoom(room, playerSize);
@@ -184,7 +184,7 @@ public class DynamicRoomManager : RoomManager
     if (roomList.Count > 0)
     {
       roomList[0].SetActive(true);
-      currentRoom = roomList[0];
+      currentRoom = roomList[0].gameObject;
     }
   }
   Vector3 CalculateNewPosition(Room room, Door door, Room otherRoom, Door otherDoor, Vector2 roomSize, Vector2 otherRoomSize, Vector3 otherPosition)

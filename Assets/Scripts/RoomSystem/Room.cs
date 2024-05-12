@@ -15,7 +15,7 @@ public class Room : MonoBehaviour
   [HideInInspector] public Vector3 maxEdgePos;
   private TilemapCollider2D[] tilemapColliders;
   private Camera cam;
-  private Minimap miniMap;
+  private RoomMap map;
 
   public Vector2 RoomSize
   {
@@ -34,7 +34,7 @@ public class Room : MonoBehaviour
     {
       var cameraData = cam.GetUniversalAdditionalCameraData();
       cameraData.cameraStack.Add(overlayCamera);
-      miniMap = new Minimap(this.gameObject);
+      map = new RoomMap(this);
     }
     GameObject triggerObject = new("Trigger");
     triggerObject.transform.position = this.transform.position;
@@ -64,10 +64,7 @@ public class Room : MonoBehaviour
   }
   public void Disable()
   {
-    if (miniMap != null)
-    {
-      miniMap.Hide();
-    }
+    map?.Hide();
     if (tilemapColliders != null)
       foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
       {
@@ -79,10 +76,7 @@ public class Room : MonoBehaviour
 
   public void Enable()
   {
-    if (miniMap != null)
-    {
-      miniMap.Show();
-    }
+    map?.Show();
     if (tilemapColliders != null)
       foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
       {

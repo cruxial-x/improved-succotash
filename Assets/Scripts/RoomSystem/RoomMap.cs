@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Minimap
+public class RoomMap
 {
   private Room room;
   private Tilemap[] tilemaps;
   private int[] initialLayers;
   private SpriteRenderer[] spriteRenderers;
 
-  public Minimap(GameObject roomObject)
+  public RoomMap(Room roomComponent)
   {
-    room = roomObject.GetComponent<Room>();
+    room = roomComponent;
+    GameObject roomObject = room.gameObject;
+    roomObject.GetComponent<Room>();
     this.tilemaps = roomObject.GetComponentsInChildren<Tilemap>();
     this.spriteRenderers = roomObject.GetComponentsInChildren<SpriteRenderer>();
     this.initialLayers = new int[tilemaps.Length];

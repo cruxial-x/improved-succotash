@@ -6,6 +6,9 @@ using System.Linq;
 
 public class DynamicRoomManager : RoomManager
 {
+  // Expose overlap percentage as a public field
+  [Range(0, 1)]
+  public float overlapPercentage = 0.25f;
   public GameObject[] rooms;
   public List<GameObject> roomList { get; private set; } = new List<GameObject>();
   public Dictionary<Door, List<Door>> validDoorConnections = new Dictionary<Door, List<Door>>
@@ -213,8 +216,8 @@ public class DynamicRoomManager : RoomManager
         Vector2 existingRoomSize = existingRoom.GetComponent<Room>().RoomSize;
 
         // Calculate if rooms overlap using actual room dimensions
-        if (Mathf.Abs(position.x - existingPosition.x) < (newRoomSize.x / 2 + existingRoomSize.x / 2) &&
-            Mathf.Abs(position.y - existingPosition.y) < (newRoomSize.y / 2 + existingRoomSize.y / 2))
+        if (Mathf.Abs(position.x - existingPosition.x) < (newRoomSize.x / 2 + existingRoomSize.x / 2) * (1 - overlapPercentage) &&
+            Mathf.Abs(position.y - existingPosition.y) < (newRoomSize.y / 2 + existingRoomSize.y / 2) * (1 - overlapPercentage))
         {
           overlaps = true;
           Dev.Log($"Overlap detected between new position {position} and existing position {existingPosition} with new room size {newRoomSize} and existing room size {existingRoomSize}");

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Room : MonoBehaviour
 {
@@ -27,8 +28,13 @@ public class Room : MonoBehaviour
     }
   }
 
-  public void Setup(Vector2 playerSize)
+  public void Setup(Vector2 playerSize, Camera overlayCamera = null)
   {
+    if (overlayCamera != null)
+    {
+      var cameraData = cam.GetUniversalAdditionalCameraData();
+      cameraData.cameraStack.Add(overlayCamera);
+    }
     GameObject triggerObject = new("Trigger");
     triggerObject.transform.position = this.transform.position;
     Dev.Log("Room bounds size: " + roomSize);

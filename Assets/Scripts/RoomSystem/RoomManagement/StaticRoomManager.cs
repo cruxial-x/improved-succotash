@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class StaticRoomManager : RoomManager
 {
+  public Camera minimapOverlayCamera;
   void Start()
   {
     roomList.Clear();
@@ -11,7 +12,7 @@ public class StaticRoomManager : RoomManager
     for (int i = 0; i < roomObjects.Length; i++)
     {
       Room room = roomObjects[i].GetComponent<Room>();
-      room.Setup(playerSize);
+      room.Setup(playerSize, minimapOverlayCamera);
       roomList.Add(room);
     }
 

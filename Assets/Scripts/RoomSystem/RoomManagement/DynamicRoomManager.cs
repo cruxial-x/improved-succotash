@@ -78,7 +78,7 @@ public class DynamicRoomManager : RoomManager
       firstRoomComponent.IsStartRoom = true;
       roomPositions.Add(firstRoom, Vector3.zero);
       roomList.Add(firstRoomComponent);
-      RoomSetup.SetupRoom(firstRoom, playerSize);
+      firstRoomComponent.Setup(playerSize);
     }
     for (int i = 1; i < rooms.Length; i++)
     {
@@ -115,10 +115,9 @@ public class DynamicRoomManager : RoomManager
         // Instantiate the room at the chosen position
         GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
         roomPositions.Add(room, position.Value);
-        roomList.Add(room.GetComponent<Room>());
-
-        // Setup the room
-        RoomSetup.SetupRoom(room, playerSize);
+        Room roomComponent = room.GetComponent<Room>();
+        roomList.Add(roomComponent);
+        roomComponent.Setup(playerSize);
       }
       else
       {
@@ -167,10 +166,9 @@ public class DynamicRoomManager : RoomManager
           // Instantiate the room at the chosen position
           GameObject room = Instantiate(roomPrefab, position.Value, Quaternion.identity);
           roomPositions.Add(room, position.Value);
-          roomList.Add(room.GetComponent<Room>());
-
-          // Setup the room
-          RoomSetup.SetupRoom(room, playerSize);
+          Room roomComponent = room.GetComponent<Room>();
+          roomList.Add(roomComponent);
+          roomComponent.Setup(playerSize);
         }
         else
         {
